@@ -635,7 +635,7 @@
       <div class="eyebrow">City Highlights</div>
       <h1>USA West Coast Trip</h1>
       <p>Family trip - Phoenix, San Francisco, Los Angeles, Las Vegas</p>
-      <p id="heroDates">Jun 28 - Jul 21</p>
+      <p id="heroDates">Jun 26 - Jul 12</p>
     </div>
   </header>
 
@@ -645,15 +645,15 @@
       <div class="date-inputs-grid">
         <div class="date-input-group">
           <label for="startDate">Start date (arrival in US)</label>
-          <input type="date" id="startDate" value="2026-06-28" onchange="updateDates()">
+          <input type="date" id="startDate" value="2026-06-26" onchange="updateDates()">
         </div>
         <div class="date-input-group">
           <label for="endDate">End date (return to Belgium)</label>
-          <input type="date" id="endDate" value="2026-07-21" onchange="updateDates()">
+          <input type="date" id="endDate" value="2026-07-12" onchange="updateDates()">
         </div>
         <div class="date-input-group">
           <label>Trip length</label>
-          <div class="date-display" id="tripLength">24 days</div>
+          <div class="date-display" id="tripLength">17 days</div>
         </div>
       </div>
 
@@ -663,29 +663,29 @@
           <div class="buffer-item">
             <label for="phx1Days">Before SFO trip</label>
             <div class="buffer-control">
-              <input type="number" id="phx1Days" min="1" max="14" value="3" onchange="updateDates()" class="buffer-input">
-              <span class="buffer-value" id="phx1Value">3 days</span>
+              <input type="number" id="phx1Days" min="1" max="14" value="2" onchange="updateDates()" class="buffer-input">
+              <span class="buffer-value" id="phx1Value">2 days</span>
             </div>
           </div>
           <div class="buffer-item">
             <label for="phx2Days">After SFO, before LA</label>
             <div class="buffer-control">
-              <input type="number" id="phx2Days" min="1" max="14" value="3" onchange="updateDates()" class="buffer-input">
-              <span class="buffer-value" id="phx2Value">3 days</span>
+              <input type="number" id="phx2Days" min="1" max="14" value="1" onchange="updateDates()" class="buffer-input">
+              <span class="buffer-value" id="phx2Value">1 day</span>
             </div>
           </div>
           <div class="buffer-item">
             <label for="phx3Days">After LA, before Vegas</label>
             <div class="buffer-control">
-              <input type="number" id="phx3Days" min="1" max="14" value="3" onchange="updateDates()" class="buffer-input">
-              <span class="buffer-value" id="phx3Value">3 days</span>
+              <input type="number" id="phx3Days" min="1" max="14" value="1" onchange="updateDates()" class="buffer-input">
+              <span class="buffer-value" id="phx3Value">1 day</span>
             </div>
           </div>
           <div class="buffer-item">
             <label for="phx4Days">After Vegas trip</label>
             <div class="buffer-control">
-              <input type="number" id="phx4Days" min="1" max="14" value="3" onchange="updateDates()" class="buffer-input">
-              <span class="buffer-value" id="phx4Value">3 days</span>
+              <input type="number" id="phx4Days" min="1" max="14" value="1" onchange="updateDates()" class="buffer-input">
+              <span class="buffer-value" id="phx4Value">1 day</span>
             </div>
           </div>
         </div>
@@ -705,7 +705,7 @@
       <div class="summary-grid">
         <div class="summary-item">
           <span class="summary-label">Trip dates</span>
-          <div class="summary-value" id="overviewDates">Jun 28 - Jul 21</div>
+          <div class="summary-value" id="overviewDates">Jun 26 - Jul 12</div>
         </div>
         <div class="summary-item">
           <span class="summary-label">Base city</span>
@@ -1041,8 +1041,8 @@
   </footer>
 
   <script>
-    const DEFAULT_START = '2026-06-28';
-    const DEFAULT_END = '2026-07-21';
+    const DEFAULT_START = '2026-06-26';
+    const DEFAULT_END = '2026-07-12';
     const FIXED_DAYS = { sfo: 5, la: 4, vegas: 3 };
 
     // Activity descriptions for each day based on the default 24-day structure
@@ -1382,7 +1382,10 @@
       for (let i = 0; i < phx4Days; i++) {
         const date = addDays(startDate, offset);
         const currentDayNum = dayNum;
-        const activity = phoenixActivities[currentDayNum] || "Buffer day in Phoenix";
+        const isFinalTripDay = i === phx4Days - 1;
+        const activity = isFinalTripDay
+          ? "Phoenix to Belgium flight"
+          : (phoenixActivities[currentDayNum] || "Buffer day in Phoenix");
         const isAlt = allPhoenixDayNums.length % 2 === 1;
         phoenixHtml += `
           <div class="day-row${isAlt ? ' alt' : ''}">
@@ -1453,10 +1456,10 @@
     function resetDates() {
       document.getElementById('startDate').value = DEFAULT_START;
       document.getElementById('endDate').value = DEFAULT_END;
-      document.getElementById('phx1Days').value = '3';
-      document.getElementById('phx2Days').value = '3';
-      document.getElementById('phx3Days').value = '3';
-      document.getElementById('phx4Days').value = '3';
+      document.getElementById('phx1Days').value = '2';
+      document.getElementById('phx2Days').value = '1';
+      document.getElementById('phx3Days').value = '1';
+      document.getElementById('phx4Days').value = '1';
       updateDates();
     }
 
